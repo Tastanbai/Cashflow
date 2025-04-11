@@ -30,7 +30,22 @@ class TransactionForm(forms.ModelForm):
         elif self.instance.pk and self.instance.category:
             self.fields['subcategory'].queryset = self.instance.category.subcategories.all()
 
+    def clean(self):
+        cleaned_data = super().clean()
+        transaction_type = cleaned_data.get('transaction_type')
+        category = cleaned_data.get('category')
+        subcategory = cleaned_data.get('subcategory')
 
+        # Бизнес-правило: выбранная категория должна принадлежать выбранному типу транзакции.
+        if category and transaction_type and category.transaction_type != transaction_type:
+            raise forms.ValidationError("Выбранная категория не соответствует выбранному типу.")
+        
+        # Бизнес-правило: выбранная подкатегория должна принадлежать выбранной категории.
+        if subcategory and category and subcategory.category != category:
+            raise forms.ValidationError("Выбранная подкатегория не соответствует выбранной категории.")
+        
+        return cleaned_data
+    
 class StatusForm(forms.ModelForm):
     class Meta:
         model = Status
