@@ -41,7 +41,7 @@
 ### 2.1. Клонирование репозитория
 
 ```bash
-https://github.com/Tastanbai/-Cashflow.git
+https://github.com/Tastanbai/Cashflow.git
 cd cashflow
 
 2.2. Создание виртуального окружения (рекомендуется) 
