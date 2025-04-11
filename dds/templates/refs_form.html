@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>{{ title }}</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    {% if delete_confirm %}
+      <p>Вы уверены, что хотите удалить?</p>
+      <button type="submit" class="btn btn-danger">Удалить</button>
+      <a href="{% url 'dds:refs_list' %}" class="btn btn-secondary">Отмена</a>
+    {% else %}
+      <button type="submit" class="btn btn-primary">Сохранить</button>
+      <a href="{% url 'dds:refs_list' %}" class="btn btn-secondary">Назад</a>
+    {% endif %}
+</form>
+{% endblock content %}

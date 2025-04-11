@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Управление справочниками</h2>
+
+<!-- Статусы -->
+<h3>Статусы</h3>
+<a href="{% url 'dds:status_create' %}" class="btn btn-success btn-sm mb-2">Добавить статус</a>
+<table class="table table-bordered">
+    <thead>
+        <tr><th>ID</th><th>Наименование</th><th></th></tr>
+    </thead>
+    <tbody>
+        {% for s in statuses %}
+        <tr>
+            <td>{{ s.id }}</td>
+            <td>{{ s.name }}</td>
+            <td>
+                <a class="btn btn-warning btn-sm" href="{% url 'dds:status_edit' s.id %}">Изм.</a>
+                <a class="btn btn-danger btn-sm" href="{% url 'dds:status_delete' s.id %}">Уд.</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- Типы транзакций -->
+<h3>Типы транзакций</h3>
+<a href="{% url 'dds:ttype_create' %}" class="btn btn-success btn-sm mb-2">Добавить тип</a>
+<table class="table table-bordered">
+    <thead>
+        <tr><th>ID</th><th>Наименование</th><th></th></tr>
+    </thead>
+    <tbody>
+        {% for t in types %}
+        <tr>
+            <td>{{ t.id }}</td>
+            <td>{{ t.name }}</td>
+            <td>
+                <a class="btn btn-warning btn-sm" href="{% url 'dds:ttype_edit' t.id %}">Изм.</a>
+                <a class="btn btn-danger btn-sm" href="{% url 'dds:ttype_delete' t.id %}">Уд.</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- Категории -->
+<h3>Категории</h3>
+<a href="{% url 'dds:category_create' %}" class="btn btn-success btn-sm mb-2">Добавить категорию</a>
+<table class="table table-bordered">
+    <thead>
+        <tr><th>ID</th><th>Наименование</th><th>Тип транзакции</th><th></th></tr>
+    </thead>
+    <tbody>
+        {% for c in categories %}
+        <tr>
+            <td>{{ c.id }}</td>
+            <td>{{ c.name }}</td>
+            <td>{{ c.transaction_type.name }}</td>
+            <td>
+                <a class="btn btn-warning btn-sm" href="{% url 'dds:category_edit' c.id %}">Изм.</a>
+                <a class="btn btn-danger btn-sm" href="{% url 'dds:category_delete' c.id %}">Уд.</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- Подкатегории -->
+<h3>Подкатегории</h3>
+<a href="{% url 'dds:subcategory_create' %}" class="btn btn-success btn-sm mb-2">Добавить подкатегорию</a>
+<table class="table table-bordered">
+    <thead>
+        <tr><th>ID</th><th>Наименование</th><th>Категория</th><th></th></tr>
+    </thead>
+    <tbody>
+        {% for sc in subcategories %}
+        <tr>
+            <td>{{ sc.id }}</td>
+            <td>{{ sc.name }}</td>
+            <td>{{ sc.category.name }}</td>
+            <td>
+                <a class="btn btn-warning btn-sm" href="{% url 'dds:subcategory_edit' sc.id %}">Изм.</a>
+                <a class="btn btn-danger btn-sm" href="{% url 'dds:subcategory_delete' sc.id %}">Уд.</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock content %}
